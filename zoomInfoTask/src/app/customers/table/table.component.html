@@ -1,0 +1,5 @@
+<app-data-table tableName="{{ 'CUSTOMERS' | t }}" [columns]="columns" [isSelectable]="true" (fetchItems)="fetchItems()" [limit]="2">
+  <div class="text-left new-item-btn">
+    <button mat-button class="main-btn" (click)="newCustomer()">{{ 'NEW_DEFERRED_PAY_CUSTOMER' | t }}</button>
+  </div>
+</app-data-table>

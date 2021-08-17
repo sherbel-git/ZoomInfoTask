@@ -1,0 +1,24 @@
+<p class="f-18 title"> {{ ('SIGNUP_FORM' | t )}}</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="d-flex justify-content-between mb-3">
+    <div>
+      <button mat-button class="main-btn" type="submit">{{ ('SAVE' | t ) }}</button>
+    </div>
+    <div>
+      <button mat-button class="main-btn" type="button" (click)="navigate()">{{ ('TO_LOGIN_FORM' | t ) }}</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card bg-light py-3 px-5 col-12">
+<!--    <div class="card bg-light py-3 px-5 col-4 col-s-12">-->
+      <mat-form-field>
+        <input matInput type="text" placeholder="{{ ('EMAIL' | t) }}" formControlName="email">
+        <mat-error>{{ errorMessages.required | t }}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="password" placeholder="{{ 'PASSWORD' | t}}" formControlName="password">
+        <mat-error>{{ errorMessages.required }}</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+</form>

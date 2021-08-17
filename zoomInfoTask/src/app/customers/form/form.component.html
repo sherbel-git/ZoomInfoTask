@@ -1,0 +1,30 @@
+<p class="f-18 title"> {{ customer ? customer.firstName : ('CUSTOMER_FORM' | t )}}</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="d-flex justify-content-between mb-3">
+    <div>
+      <button mat-button class="main-btn" type="submit">{{ customer ? ('update' | t ) : ('SAVE' | t ) }}</button>
+    </div>
+    <div>
+      <button mat-button class="main-btn" type="button" (click)="navigate()">{{ ('CUSTOMERS_LIST' | t ) }}</button>
+    </div>
+  </div>
+  <div class="card bg-light py-3 px-5 mt-4">
+    <mat-form-field>
+      <input matInput type="text" placeholder="{{ ('ID_NUMBER' | t) + '/' + ('BUSINESS_ID' | t )  }}" formControlName="idNumber">
+      <mat-error>{{ errorMessages.required | t }}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" placeholder="{{ 'NAME' | t}}" formControlName="firstName">
+      <mat-error>{{ errorMessages.required }}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="{{ 'PHONE' | t }}" formControlName="phone1">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" placeholder="{{ 'OBLIGO' | t }}" formControlName="obligo">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" placeholder="{{ 'BALANCE' | t }}" formControlName="balance">
+    </mat-form-field>
+  </div>
+</form>

@@ -1,0 +1,41 @@
+<p class="mb-3 title">{{ tableName }}</p>
+<ng-content select=".table-header"></ng-content>
+<ng-content select=".new-item-btn"></ng-content>
+<button mat-button class="main-btn" [routerLink]="formUrl" *ngIf="formUrl">פריט חדש</button>
+<div class="d-flex align-items-center" *ngIf="showSearch">
+  <mat-form-field>
+    <input matInput placeholder="{{'SEARCH' | t}}" [(ngModel)]="criteria.keyword" (keyup)="search($event)">
+    <i matSuffix class="fa fa-search pointer" (click)="search()"></i>
+  </mat-form-field>
+  <ng-content select=".criteria-field"></ng-content>
+  <ng-content select=".clear-filters-btn" *ngIf="isSearchActive"></ng-content>
+</div>
+<p class="alert alert-success mb-3" *ngIf="savedItem">{{ savedItem }} נשמר בהצלחה.</p>
+<div class="table-container">
+  <table class="table table-striped" [ngClass]="{ 'table-hover': isSelectable }">
+    <thead>
+    <tr>
+      <th *ngFor="let column of columns" (click)="sortItems('firstName', 'desc' || 'dec')" class="pointer table-header">
+        <span [matTooltip]="'מיין לפי ' + column.label">{{ column.label | t }}</span>
+        <i class="fa fa-caret-down mr-1" [@rotate]="rotateSortingIcon()" [@fade]="criteria.sort.column === column.name ? 'active' : 'inactive'"></i>
+      </th>
+      <th class="table-header" *ngIf="hasActionsHeader">{{'ACTIONS' | t}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of items  | paginate: config">
+      <td>{{item.idNumber}}</td>
+      <td>{{item.firstName}}</td>
+      <td>{{item.phone1}}</td>
+      <td>{{item.balance}}</td>
+      <td>{{item.obligo}}</td>
+      <td class="row-actions">
+        <i [matTooltip]="'EDIT' | t" class="fa fa-pencil-alt" [routerLink]="['/customers', 'form', item.id]"></i>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <p *ngIf="items.length === 0" class="text-center bold">{{ isLoading ? ('LOADING' | t) : ('NO_ITEMS_TO_DISPLAY' | t) }}</p>
+  <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+</div>
+
